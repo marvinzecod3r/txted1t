@@ -10,7 +10,6 @@ txt.value += '\n~> ":load"/":l" : Loads Virtual File';
 txt.value += '\n~> ":save"/":s" : Saves Virtual File';
 txt.value += '\n\nEnjoy using Texted1t :D';
 
-
 let fileHandle;
 async function openFile() {
   const [fileHandle] = await window.showOpenFilePicker();
@@ -18,7 +17,6 @@ async function openFile() {
   let content = await file.text();
   txt.value = content;
 }
-
 
 async function saveFile() {
   let  newHandle = await window.showSaveFilePicker();
@@ -34,29 +32,23 @@ txt.addEventListener("keydown", function(event) {
         bar.focus();
         bar.value = "";
         event.preventDefault();
-    }else if (event.key == "Tab") {
+    }else if (event.key === "Tab") {
       var start=this.selectionStart;
       var end=this.selectionEnd;
-      txt.value=txt.value.substr(0, start)+"\t"+txt.value;
-      txt.selectionStart+=start+1;
+      txt.value=txt.value.substr(0, start)+"\t"+txt.value.substr(start, txt.value.length);
+      txt.selectionStart = start + 1;
+      txt.selectionEnd = end + 1;
+      event.preventDefault();
     };
 });
 
-
 var vim_cmd = {};
-
 vim_cmd[":o"] = openFile;
 vim_cmd[":w"] = saveFile;
 vim_cmd[":q"] = function(){window.close();};
 vim_cmd[":n"] = function(){txt.value="";};
-
-
 vim_cmd[":l"] = function(raw){txt.value=virutalfile[raw.split(" ")[1]];};
 vim_cmd[":s"] = function(raw){virutalfile[raw.split(" ")[1]]=txt.value;};
-vim_cmd[":c"] = function(raw){
-if(raw.split(" ")[1] == "red"){txt.value="color set 2 red";bar.style.color = "red";txt.style.color = "red";}
-}
-
 vim_cmd[":open"] = vim_cmd[":o"];
 vim_cmd[":write"] = vim_cmd[":w"];
 vim_cmd[":quit"] = vim_cmd[":q"];
