@@ -8,7 +8,6 @@ txt.value += '\n~> ESC : CmdletBar\n~> I : Insert mode.';
 txt.value += '\n####====##### VIRTUAL FILES #####====#####';
 txt.value += '\n~> ":load"/":l" : Loads Virtual File';
 txt.value += '\n~> ":save"/":s" : Saves Virtual File';
-txt.value += '\n~> ":list"/":li" : List Virutal Files';
 txt.value += '\n\nEnjoy using Texted1t :D';
 
 
@@ -35,7 +34,12 @@ txt.addEventListener("keydown", function(event) {
         bar.focus();
         bar.value = "";
         event.preventDefault();
-    }
+    }else if (event.key == "Tab") {
+      var start=this.selectionStart;
+      var end=this.selectionEnd;
+      txt.value=txt.value.substr(0, start)+"\t"+txt.value;
+      txt.selectionStart+=start+1;
+    };
 });
 
 
@@ -49,9 +53,6 @@ vim_cmd[":n"] = function(){txt.value="";};
 
 vim_cmd[":l"] = function(raw){txt.value=virutalfile[raw.split(" ")[1]];};
 vim_cmd[":s"] = function(raw){virutalfile[raw.split(" ")[1]]=txt.value;};
-vim_cmd[":li"] = function(){setTimeout(function(){
-  bar.value = "vfiles: " + virtualfile.keys().join(" ");
-}, 1000)};
 vim_cmd[":c"] = function(raw){
 if(raw.split(" ")[1] == "red"){txt.value="color set 2 red";bar.style.color = "red";txt.style.color = "red";}
 }
@@ -67,8 +68,7 @@ bar.addEventListener("keydown", function(event) {
     if (bar.value === "" && event.key == "i") {
        event.preventDefault();        
        txt.focus();
-    };
-    if (event.key == "Enter") {
+    }else if (event.key == "Enter") {
       if(vim_cmd[bar.value.split(" ")[0]]) vim_cmd[bar.value.split(" ")[0]](bar.value);
 
       event.preventDefault();        
