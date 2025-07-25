@@ -7,6 +7,6 @@ A vim like text editor built for chrome os in html. :>
 ":w" : Write;
 ":q" : Quit;
 
-# Virtual Filesys Keybinds
+# Virtual Filesystem Keybinds
 ":l" : Load;
 ":s" : Save;
