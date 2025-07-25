@@ -1,0 +1,47 @@
+body{
+  padding: 0px;
+  background-color: black;
+  color: lime;
+  font-size: 1em;
+  font-family: Monospace;
+}
+
+#txtedit{
+  outline: 0;
+  background-color: transparent;
+  border: 0;
+  color: lime;
+  padding: 0px;
+  font-size: 1em;
+  font-family: Monospace;
+  position: absolute;
+  left:0;right:0;
+  top:0;bottom:1em;
+}
+
+#bar{
+  outline: 0;
+  background-color: transparent;
+  border: 0;
+  color: black;
+  background-color: lime;
+  padding: 0px;
+  font-size: 1em;
+  font-family: Monospace;
+  position: absolute;
+  left:0;right:0;
+  bottom:0;
+}
+
+
+#bar::selection
+{
+  color: lime;
+  background-color: green;
+}
+
+body::selection
+{
+  color: black;
+  background-color: lime;
+}
